@@ -19,3 +19,18 @@ This repository contains my learning experiments while accessing open-source LLM
 - Implement RAG
 - Build chatbot
 - Deploy using Streamlit/FastAPI
+
+
+huggingface-llm/
+│
+├── model_access/
+│   ├── hosted_model_access.ipynb
+│   └── local_model_access.py
+│
+├── prompt_engineering/
+│   ├── basic_prompts.ipynb
+│   ├── prompt_templates.py
+│   └── few_shot_prompting.py
+│
+├── requirements.txt
+└── README.md

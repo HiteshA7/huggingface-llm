@@ -1,0 +1,76 @@
+#PromptTemplate(Regular)
+pip install langchain
+import langchain
+import langchain_core
+from langchain_core.prompts import PromptTemplate
+prompt = PromptTemplate(template = "explain me about {topic} clearly", input_variable = ["topic"] )
+
+prompt.format(topic = "DeepLearning")
+
+prompt = PromptTemplate(template = "explain me about {topic} clearly in {mins}", input_variable = ["topic"], partial_variables = {"mins": 1} )
+
+prompt.format(topic = "DeepLearning")
+
+prompt = PromptTemplate(template = "explain me about {topic} clearly in {mins}", input_variable = ["topic"], partial_variables = {"mins": 1}, input_types = {"topic":str,"mins":int } )
+
+from google.colab import userdata
+gem = userdata.get('gemininb')
+
+import os
+
+os.environ["GOOGLE_API_KEY"] = gem
+
+!pip install -U langchain-google-genai
+
+import langchain
+from langchain_google_genai import GoogleGenerativeAI, ChatGoogleGenerativeAI
+
+model  = GoogleGenerativeAI(model = "models/gemini-flash-lite-latest", temperature = 0.3)
+
+prompt.format(topic = "DeepLearning")
+
+model.invoke(prompt.format(topic = "DeepLearning"))
+
+from langchain_core.prompts import SystemMessagePromptTemplate,AIMessagePromptTemplate,HumanMessagePromptTemplate
+
+a = SystemMessagePromptTemplate.from_template("You are a {yrs} yr experienced machine learning engineer")
+n = SystemMessagePromptTemplate(prompt = PromptTemplate(template =("i am {yearss} old"),input_variables = ["yearss"]))
+n.format(yearss = 13)
+print(n.format(yearss = 13))
+
+a.format(yrs = 12)
+
+b = HumanMessagePromptTemplate.from_template("Explain me about the {topic} topic")
+
+m = HumanMessagePromptTemplate(prompt = PromptTemplate(template = "i am working in a {ind} country"), input_variables = "ind")
+
+m.format(ind = "India")
+
+b.format(topic = "MAchine Learning")
+print(b.format(topic = "MAchine Learning"))
+
+#also can be accesess using another method
+
+a1 = SystemMessagePromptTemplate(prompt = PromptTemplate(template = "You are a {yrs} yr experienced machine learning engineer",input_variable =["yrs"]))
+
+a1
+
+SystemMessagePromptTemplate.from_template("You are a {yrs} years experienced")
+HumanMessagePromptTemplate.from_template("Explain about the {topic} in 10 lines")
+
+message = [SystemMessagePromptTemplate.from_template("You are a {yrs} years experienced"),HumanMessagePromptTemplate.from_template("Explain about the {topic} in 10 lines")]
+
+messages = [n.format(yearss = 12),m.format(ind = "zimbambe")]
+
+obj = ChatPromptTemplate.from_messages(messages)
+
+obj = ChatPromptTemplate(messages=messages)
+
+obj.format(ind)
+
+cpt = ChatPromptTemplate.from_messages(message)
+
+cpt = ChatPromptTemplate(messages = message)
+
+cpt.format(topic = "bla ",yrs = 12)
+
